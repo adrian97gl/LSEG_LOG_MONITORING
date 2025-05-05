@@ -22,3 +22,14 @@
     ```
     http://0.0.0.0:8000/docs
     ```
+   
+## How to run project using docker:
+0. Install docker
+1. Build the image locally
+   ```
+   docker build -t LOG_MONITORING .
+   ```
+2. Run the docker image created
+   ```
+   docker run -p 8000:8000 LOG_MONITORING
+   ```
