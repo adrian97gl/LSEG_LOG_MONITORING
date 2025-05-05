@@ -20,8 +20,12 @@
     ```
 4. Use the following link to interact with docs
     ```
-    http://0.0.0.0:8000/docs
+   http://0.0.0.0:8000/docs
     ```
+5. Run the locally test using pytest
+   ```
+      pytest --cov=app --cov-report=html:coverage_report/html tests/ 
+   ```
    
 ## How to run project using docker:
 0. Install docker
@@ -33,3 +37,4 @@
    ```
    docker run -p 8000:8000 LOG_MONITORING
    ```
+
