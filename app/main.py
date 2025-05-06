@@ -1,5 +1,5 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
-from starlette.responses import PlainTextResponse
+from starlette.responses import PlainTextResponse, HTMLResponse
 from app.utils.CONSTANTS import OUTPUTFILE
 from app.monitor import Monitor
 import os
@@ -15,25 +15,33 @@ async def root():
 
 @app.post("/log-interpretation/", tags=["Log interpretation"])
 async def log_monitoring(file: UploadFile = File(...)):
-    if not file.filename.endswith(".log"):
-        raise HTTPException(status_code=404, detail="Only .log files are supported.")
+    try:
+        if not file.filename.endswith(".log"):
+            raise HTTPException(status_code=404, detail="Only .log files are supported.")
 
-    contents = await file.read()
-    lines = contents.decode("utf-8").split("\n")
-    monitor = Monitor()
-    result = monitor.log_monitor(lines)
+        contents = await file.read()
+        lines = contents.decode("utf-8").split("\n")
+        monitor = Monitor()
+        result = monitor.log_monitor(lines)
 
-    return result
+        return result
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=500, detail="Something went wrong.")
 
 
 @app.get("/observability", tags=["Observability"])
 async def observability_report():
-    report_path = 'log/' + OUTPUTFILE
+    try:
+        report_path = 'log/' + OUTPUTFILE
 
-    if not os.path.exists(report_path):
-        return PlainTextResponse("No log file found.", status_code=404)
+        if not os.path.exists(report_path):
+            return HTMLResponse("<p>No log file found.</p>", status_code=404)
 
-    with open(report_path, 'r') as file:
-        contents = file.read()
+        with open(report_path, 'r') as file:
+            contents = file.read()
 
-    return contents
+        html_content = f"<pre>{contents}</pre>"
+        return HTMLResponse(content=html_content, status_code=200)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Something went wrong.")
