@@ -7,8 +7,10 @@ LABEL authors="Adrian Tesula"
 # Set working dirctory
 WORKDIR /app
 
-# Copy the code inside docker
+# Copy the code / tests / log file inside docker
 COPY ./app /app/app
+COPY ./tests /app/tests
+COPY ./log /app/log
 COPY requirements.txt /app/
 
 ENV PYTHONPATH="${PYTHONPATH}:/app"
