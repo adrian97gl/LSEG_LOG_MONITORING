@@ -1,6 +1,6 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
-from starlette.responses import PlainTextResponse, Response
-from utils.CONSTANTS import OUTPUTFILE
+from starlette.responses import PlainTextResponse
+from app.utils.CONSTANTS import OUTPUTFILE
 from app.monitor import Monitor
 import os
 

@@ -1,6 +1,5 @@
-import os
 from datetime import datetime
-from utils.CONSTANTS import OUTPUTFILE
+from app.utils.CONSTANTS import OUTPUTFILE
 
 
 class Monitor:
