@@ -16,8 +16,8 @@ async def root():
 @app.post("/log-interpretation/", tags=["Log interpretation"])
 async def log_monitoring(file: UploadFile = File(...)):
     try:
-        if not file.filename.endswith(".log"):
-            raise HTTPException(status_code=404, detail="Only .log files are supported.")
+        if not file.filename.endswith(".log") and not file.filename.endswith(".csv"):
+            raise HTTPException(status_code=404, detail="Only .csv / .log files are supported.")
 
         contents = await file.read()
         lines = contents.decode("utf-8").split("\n")
