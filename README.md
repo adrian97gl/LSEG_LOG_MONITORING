@@ -9,6 +9,13 @@ This application is able to:
    * Logs a warning if a job took longer than 5 minutes
    * Logs an error if a job took longer than 10 minutes
 
+## Frameworks / tools used for Coding Challenge.
+1. Github
+2. Github Actions
+3. Docker
+4. FastApi
+5. Docker hub
+
 ## Prerequisites
     - python 3.11.9
     - Web Browser
@@ -75,3 +82,17 @@ This application is able to:
    http://0.0.0.0:8000/observability
 ```
 ![ObservabilityWeb](docs/img/ObservabilityWeb.png)
+
+## Usage of testing framework
+
+For the testing I used pytest because it's very native with python and it's easy to be used.
+
+1. Run the project
+2. Execute pytest script in the root folder with the command: 
+   ```
+      pytest --cov=app --cov-report=html:coverage_report/html tests/
+   ```
+3. This command will run all the tests that are available in the folder ```tests```
+4. After are the tests are finished the result of them is shown in terminal and index.html related to coverage is present in coverage_report.
+5. ![TerminalPYTEST](docs/img/TerminalPYTEST.png)
+6. ![CoveragePYTEST](docs/img/CoveragePYTEST.png)
