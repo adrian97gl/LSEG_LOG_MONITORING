@@ -14,6 +14,7 @@ class Monitor:
 
                 task_description = line[1].strip()
                 task_name = task_description.split(' ')[-1]
+                task_type = task_description.split(' ')[-2]
                 task_pid = line[-1]
                 task_time = line[0].strip()
 
@@ -27,6 +28,7 @@ class Monitor:
                 else:
                     print('The line don`t have the same format', line)
 
+                self.log_dictionary[task_name]['TYPE'] = task_type
                 self.log_dictionary[task_name]['DESCRIPTION'] = task_description
                 self.log_dictionary[task_name]['PID'] = task_pid
 
@@ -63,16 +65,18 @@ class Monitor:
     def generate_report(self, output_path="log/" + OUTPUTFILE):
         with open(output_path, 'a') as file:
             for task_name, task_object in self.log_dictionary.items():
-                behavior = task_object.get('BEHAVIOR', 'UNKNOWN')
-                duration = task_object.get('DURATION', 'N/A')
+                task_behavior = task_object.get('BEHAVIOR', 'UNKNOWN')
+                task_duration = task_object.get('DURATION', 'N/A')
 
-                if duration != 'N/A':
-                    duration = "{:.2f}".format(duration / 60)
+                if task_duration != 'N/A':
+                    task_duration = "{:.2f}".format(task_duration / 60)
 
-                pid = task_object.get('PID', 'N/A')
+                task_pid = task_object.get('PID', 'N/A')
+                task_type = task_object.get('TYPE', 'N/A')
 
-                if behavior != 'OK':
-                    text_line = f'[{behavior}] Application {task_name} with PID {pid}, duration of application {duration} minutes'
+                if task_behavior != 'OK':
+                    text_line = (f'[{task_behavior}] Application {task_name}, type {task_type} with PID {task_pid}, '
+                                 f'duration of application {task_duration} minutes')
 
                     file.write(text_line + '\n')
 
