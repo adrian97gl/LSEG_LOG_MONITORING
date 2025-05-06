@@ -9,6 +9,13 @@ This application is able to:
    * Logs a warning if a job took longer than 5 minutes
    * Logs an error if a job took longer than 10 minutes
 
+## Frameworks / tools used for Coding Challenge.
+1. Github
+2. Github Actions
+3. Docker
+4. FastApi
+5. Docker hub
+
 ## Prerequisites
     - python 3.11.9
     - Web Browser
@@ -75,3 +82,43 @@ This application is able to:
    http://0.0.0.0:8000/observability
 ```
 ![ObservabilityWeb](docs/img/ObservabilityWeb.png)
+
+## Usage of testing framework
+
+For the testing I used pytest because it's very native with python and it's easy to be used.
+
+1. Run the project
+2. Execute pytest script in the root folder with the command: 
+   ```
+      pytest --cov=app --cov-report=html:coverage_report/html tests/
+   ```
+3. This command will run all the tests that are available in the folder ```tests```
+4. After are the tests are finished the result of them is shown in terminal and index.html related to coverage is present in coverage_report.
+5. ![TerminalPYTEST](docs/img/TerminalPYTEST.png)
+6. ![CoveragePYTEST](docs/img/CoveragePYTEST.png)
+
+## Github Actions
+
+### PR FLOW
+   Everytime when a new PR is made that need to be merged in main it will trigger the following gates:
+* Select the node ( Ubuntu )
+* Checkout of branch
+* Setup of the python
+* Install dependencies
+* Run coverage ( using pytest )
+* Upload artifacts ( uploading of the coverage folder )
+
+### Docker FLOW
+   Everytime when something is merged to main it will trigger docker with the following gates:
+* Select the node ( Ubuntu )
+* Checkout of branch
+* Login to docker hub
+* Building docker image
+* Run PyTest inside docker
+* Push docker image to dockerhub
+
+
+## Docker hub
+   Is a place where the images that are builded during Docker flow will de uploaded directly.
+   All images that are uploaded are available there:
+   ![DockerHUB](docs/img/DockerHUB.png)
