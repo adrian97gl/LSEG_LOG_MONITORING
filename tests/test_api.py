@@ -40,3 +40,11 @@ def test_log_monitoring_upload_file():
     assert response.status_code == 200
     data = response.json()
     assert isinstance(data, dict)
+
+
+def test_simulation_for_10_seconds():
+    response = client.get("/simulate_logs", params={"seconds": 2})
+    assert response.status_code == 200
+
+    data = response.json()
+    assert isinstance(data, list)

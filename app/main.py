@@ -1,7 +1,8 @@
 from fastapi import FastAPI, UploadFile, File, HTTPException
-from starlette.responses import PlainTextResponse, HTMLResponse
+from starlette.responses import PlainTextResponse, HTMLResponse, JSONResponse
 from app.utils.CONSTANTS import OUTPUTFILE
 from app.monitor import Monitor
+from app.processsimulator import ProcessSimulator
 from prometheus_fastapi_instrumentator import Instrumentator
 
 import os
@@ -9,7 +10,6 @@ import os
 app = FastAPI()
 
 instrumentator = Instrumentator().instrument(app).expose(app)
-
 
 # There is the root of the application
 @app.get("/")
@@ -49,3 +49,15 @@ async def observability_report():
         return HTMLResponse(content=html_content, status_code=200)
     except Exception as e:
         raise HTTPException(status_code=500, detail="Something went wrong.")
+
+
+@app.get("/simulate_logs", tags=["Simulate logs"])
+async def simulate_logs(seconds: int):
+    try:
+        process_simulator = ProcessSimulator()
+        result = process_simulator.start_process_simulator(seconds)
+
+        return JSONResponse(content=result, status_code=200)
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Something went wrong. {e}")
