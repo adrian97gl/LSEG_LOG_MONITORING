@@ -2,9 +2,13 @@ from fastapi import FastAPI, UploadFile, File, HTTPException
 from starlette.responses import PlainTextResponse, HTMLResponse
 from app.utils.CONSTANTS import OUTPUTFILE
 from app.monitor import Monitor
+from prometheus_fastapi_instrumentator import Instrumentator
+
 import os
 
 app = FastAPI()
+
+instrumentator = Instrumentator().instrument(app).expose(app)
 
 
 # There is the root of the application
