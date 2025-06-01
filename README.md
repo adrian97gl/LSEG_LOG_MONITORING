@@ -15,6 +15,7 @@ This application is able to:
 3. Docker
 4. FastApi
 5. Docker hub
+6. Prometheus
 
 ## Prerequisites
     - python 3.11.9
@@ -83,6 +84,17 @@ This application is able to:
 ```
 ![ObservabilityWeb](docs/img/ObservabilityWeb.png)
 
+## How to interact with prometheus
+1. Run the application
+2. Every interaction with api is stored and exposed on ``` http://localhost:8000/metrics ```
+3. Verify the state of prometheus using ``` http://localhost:9090/targets ```
+![PrometheusTargets](docs/img/PrometheusTargets.png)
+4. To try a simple query go to ``` http://localhost:9090/query ``` enter the following code
+   ``` rate(http_request_duration_seconds_sum[5m]) / rate(http_request_duration_seconds_count[5m])```
+   then press the button Execute.
+   ![PrometheusQuery](docs/img/PrometheusQuery.png)
+
+   
 ## Usage of testing framework
 
 For the testing I used pytest because it's very native with python and it's easy to be used.

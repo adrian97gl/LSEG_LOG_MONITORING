@@ -4,3 +4,4 @@ pytest
 httpx
 python-multipart
 pytest-cov
+prometheus_fastapi_instrumentator
