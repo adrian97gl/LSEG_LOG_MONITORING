@@ -16,6 +16,7 @@ This application is able to:
 4. FastApi
 5. Docker hub
 6. Prometheus
+7. Jenkins
 
 ## Prerequisites
     - python 3.11.9
